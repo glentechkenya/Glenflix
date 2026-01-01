@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glenflix - Futuristic Movies</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glenflix - Futuristic Movies</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -23,6 +23,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <canvas id="particles"></canvas>
         <div class="hero-content">
             <h1>Welcome to Glenflix</h1>
             <p>Stream the future of movies with a futuristic vibe.</p>
@@ -42,10 +43,19 @@
     <!-- Movie Grid -->
     <section class="movies">
         <h2>Trending Movies</h2>
-        <div class="movie-grid" id="movieGrid">
-            <!-- Movie cards injected by JS -->
-        </div>
+        <div class="movie-grid" id="movieGrid"></div>
     </section>
+
+    <!-- Movie Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h3 id="modalTitle"></h3>
+            <img id="modalImg" src="" alt="" />
+            <p id="modalDesc"></p>
+            <a id="modalTrailer" href="#" target="_blank">Watch Trailer</a>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
