@@ -1,0 +1,170 @@
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+    background: #0a0a0a;
+    color: #fff;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: linear-gradient(90deg, #0f0f0f, #1a1a1a);
+    border-bottom: 2px solid #00ffea;
+}
+
+header .logo {
+    font-size: 2rem;
+    color: #00ffea;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+header nav ul {
+    display: flex;
+    gap: 30px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+}
+
+header nav ul li a:hover {
+    color: #00ffea;
+    text-shadow: 0 0 8px #00ffea;
+}
+
+/* Hero */
+.hero {
+    height: 60vh;
+    background: linear-gradient(to right, rgba(0,255,234,0.2), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    flex-direction: column;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: #00ffea;
+    text-shadow: 0 0 15px #00ffea;
+}
+
+.hero p {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    color: #fff;
+}
+
+.hero input {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+/* Categories */
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.categories button {
+    padding: 10px 20px;
+    background: #111;
+    border: 1px solid #00ffea;
+    border-radius: 8px;
+    color: #00ffea;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.categories button:hover {
+    background: #00ffea;
+    color: #0a0a0a;
+}
+
+/* Movies Section */
+.movies {
+    padding: 30px 50px;
+    text-align: center;
+}
+
+.movies h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00ffea;
+}
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.movie-card {
+    background: #111;
+    border: 1px solid #00ffea;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+}
+
+.movie-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px #00ffea;
+}
+
+.movie-card img {
+    width: 100%;
+    display: block;
+}
+
+.movie-card h3 {
+    padding: 10px;
+    font-size: 1.1rem;
+    color: #00ffea;
+}
+
+/* Footer */
+footer {
+    padding: 30px;
+    text-align: center;
+    background: #111;
+    border-top: 2px solid #00ffea;
+    color: #00ffea;
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+    header nav ul {
+        gap: 15px;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+}
