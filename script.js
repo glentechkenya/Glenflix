@@ -10,21 +10,40 @@ const closeModal = document.getElementById('closeModal');
 
 let movies = [];
 
-// Fetch movies (static fallback version)
+// Fetch movies from Gifted API
 async function fetchMovies(category="all") {
-    // Static movies
-    movies = [
+    try {
+        let url = category === "all" 
+            ? `https://movieapi.giftedtech.co.ke/api/search/popular`
+            : `https://movieapi.giftedtech.co.ke/api/search/${encodeURIComponent(category)}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+        movies = data.results?.items || [];
+
+        // If API returns empty, fallback static movies
+        if (movies.length === 0) movies = getFallbackMovies();
+
+        displayMovies(movies);
+    } catch (e) {
+        console.error("API fetch failed, using fallback movies.", e);
+        movies = getFallbackMovies();
+        displayMovies(movies);
+    }
+}
+
+// Static fallback movies
+function getFallbackMovies() {
+    return [
         {title:"Cyber Realm", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Futuristic sci-fi adventure.", trailer:"#", category:"sci-fi"},
         {title:"Neon Chase", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"High-speed action in neon city.", trailer:"#", category:"action"},
         {title:"Future Wars", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Epic battles in the future.", trailer:"#", category:"action"},
         {title:"Holo Dreams", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Virtual reality adventures.", trailer:"#", category:"sci-fi"},
         {title:"Laugh Track", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Futuristic comedy movie.", trailer:"#", category:"comedy"}
     ];
-
-    if(category !== "all") movies = movies.filter(m => m.category === category);
-    displayMovies(movies);
 }
 
+// Display movies
 function displayMovies(list){
     movieGrid.innerHTML = "";
     list.forEach(movie=>{
@@ -41,8 +60,8 @@ function openModal(movie){
     modal.style.display="flex";
     modalTitle.textContent=movie.title;
     modalImg.src=movie.img;
-    modalDesc.textContent=movie.desc;
-    modalTrailer.href=movie.trailer;
+    modalDesc.textContent=movie.desc || "No description available.";
+    modalTrailer.href=movie.trailer || "#";
 }
 closeModal.addEventListener('click', ()=>modal.style.display="none");
 window.addEventListener('click', e=>{if(e.target===modal) modal.style.display="none";});
