@@ -10,33 +10,28 @@ const closeModal = document.getElementById('closeModal');
 
 let movies = [];
 
-// Real Gifted API integration
+// Fetch movies (static fallback version)
 async function fetchMovies(category="all") {
-    try {
-        const url = `https://api-gifted.example/movies?category=${category}`; // Replace with your real Gifted API URL
-        const res = await fetch(url);
-        movies = await res.json();
+    // Static movies
+    movies = [
+        {title:"Cyber Realm", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Futuristic sci-fi adventure.", trailer:"#", category:"sci-fi"},
+        {title:"Neon Chase", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"High-speed action in neon city.", trailer:"#", category:"action"},
+        {title:"Future Wars", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Epic battles in the future.", trailer:"#", category:"action"},
+        {title:"Holo Dreams", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Virtual reality adventures.", trailer:"#", category:"sci-fi"},
+        {title:"Laugh Track", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Futuristic comedy movie.", trailer:"#", category:"comedy"}
+    ];
 
-        if(category !== "all") movies = movies.filter(m => m.category.toLowerCase()===category);
-        displayMovies(movies);
-    } catch (e) {
-        console.error("Error fetching movies:", e);
-        // Fallback data
-        movies = [
-            {title:"Cyber Realm", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"Futuristic sci-fi adventure.", trailer:"#", category:"sci-fi"},
-            {title:"Neon Chase", img:"https://images.unsplash.com/photo-1610088679715-9dcf35c7a237?auto=format&fit=crop&w=800&q=80", desc:"High-speed action in neon city.", trailer:"#", category:"action"}
-        ];
-        displayMovies(movies);
-    }
+    if(category !== "all") movies = movies.filter(m => m.category === category);
+    displayMovies(movies);
 }
 
 function displayMovies(list){
     movieGrid.innerHTML = "";
     list.forEach(movie=>{
-        const card=document.createElement('div');
+        const card = document.createElement('div');
         card.classList.add('movie-card');
-        card.innerHTML=`<img src="${movie.img}" alt="${movie.title}"><h3>${movie.title}</h3>`;
-        card.addEventListener('click',()=>openModal(movie));
+        card.innerHTML = `<img src="${movie.img}" alt="${movie.title}"><h3>${movie.title}</h3>`;
+        card.addEventListener('click', ()=>openModal(movie));
         movieGrid.appendChild(card);
     });
 }
@@ -46,21 +41,21 @@ function openModal(movie){
     modal.style.display="flex";
     modalTitle.textContent=movie.title;
     modalImg.src=movie.img;
-    modalDesc.textContent=movie.desc || "No description available.";
-    modalTrailer.href=movie.trailer || "#";
+    modalDesc.textContent=movie.desc;
+    modalTrailer.href=movie.trailer;
 }
-closeModal.addEventListener('click',()=>modal.style.display="none");
-window.addEventListener('click',e=>{if(e.target===modal) modal.style.display="none";});
+closeModal.addEventListener('click', ()=>modal.style.display="none");
+window.addEventListener('click', e=>{if(e.target===modal) modal.style.display="none";});
 
 // Search
-searchInput.addEventListener('input',()=>{
-    const query=searchInput.value.toLowerCase();
-    const filtered=movies.filter(m=>m.title.toLowerCase().includes(query));
+searchInput.addEventListener('input', ()=>{
+    const query = searchInput.value.toLowerCase();
+    const filtered = movies.filter(m => m.title.toLowerCase().includes(query));
     displayMovies(filtered);
 });
 
 // Category filter
-categoryButtons.forEach(btn=>btn.addEventListener('click',()=>fetchMovies(btn.dataset.category)));
+categoryButtons.forEach(btn => btn.addEventListener('click', ()=>fetchMovies(btn.dataset.category)));
 
 // Particles background
 const canvas = document.getElementById('particles');
